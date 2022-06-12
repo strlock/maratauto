@@ -64,7 +64,7 @@ function closeNewForm() {
 }
 
 function tableReload() {
-    jQuery('#list-data-table').DataTable().ajax.reload();
+    jQuery('#cars-data-table').DataTable().ajax.reload();
 }
 
 jQuery(document).ready(function() {
