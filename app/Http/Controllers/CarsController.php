@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Repository\CarsRepositoryInterface;
+use App\Repository\CarsRepositoryInterface;
 use App\Models\Brand;
 use App\Models\Car;
 use App\Models\CarPhoto;
@@ -37,7 +37,7 @@ class CarsController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Http\Repository\CarsRepositoryInterface $carsRepository
+     * @param \App\Repository\CarsRepositoryInterface $carsRepository
      * @return \Illuminate\Http\JsonResponse
      */
     public function indexAjax(Request $request, CarsRepositoryInterface $carsRepository) {
@@ -75,7 +75,7 @@ class CarsController extends Controller
 
     /**
      * @param Request $request
-     * @param \App\Http\Repository\CarsRepositoryInterface $carsRepository
+     * @param \App\Repository\CarsRepositoryInterface $carsRepository
      * @return \Illuminate\Http\JsonResponse
      */
     public function save(Request $request, CarsRepositoryInterface $carsRepository) {

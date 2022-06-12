@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Http\Repository\CarsRepository;
-use App\Http\Repository\CarsRepositoryInterface;
+use App\Repository\CarsRepository;
+use App\Repository\CarsRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
