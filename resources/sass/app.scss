@@ -1,0 +1,16 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import '../css/jquery.imagesloader.css';
+
+#filters {
+    input, select {
+        width: 150px;
+        margin: 0.33rem 0;
+    }
+}
