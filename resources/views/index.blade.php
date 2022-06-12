@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row justify-content-center mb-3">
-        <div class="col-md-8">
+        <div class="col-xl-8 col-md-12">
             <div class="card">
                 <div class="card-header d-flex justify-content-end">
                     <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#newModal">{{ __('maratauto.newcar') }}</button>
@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-xl-8 col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('maratauto.advertisments') }}</div>
                 <div class="card-body">

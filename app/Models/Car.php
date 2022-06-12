@@ -17,6 +17,8 @@ class Car extends Model
         'distance',
         'owners',
         'user_id',
+        'price',
+        'content',
     ];
 
     public function state()

@@ -43,6 +43,14 @@
                         <label for="owners">{{ __('maratauto.owners') }}</label>
                         <input type="text" name="owners" class="form-control" id="owners" required />
                     </div>
+                    <div class="form-group mb-2">
+                        <label for="price">{{ __('maratauto.price') }}</label>
+                        <input type="text" name="price" class="form-control" id="price" required />
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="content">{{ __('maratauto.content') }}</label>
+                        <textarea name="content" class="form-control" id="content" required></textarea>
+                    </div>
                     <div class="form-group mb-2 form-group-uploader">
                         <label for="photos">{{ __('maratauto.photos') }}</label>
                         <input type="file" name="photos[]" multiple class="form-control" id="photos" required accept="image/jpeg, image/png, image/gif" />

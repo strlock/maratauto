@@ -75,6 +75,7 @@ class CarsController extends Controller
 
     /**
      * @param Request $request
+     * @param \App\Http\Repository\CarsRepositoryInterface $carsRepository
      * @return \Illuminate\Http\JsonResponse
      */
     public function save(Request $request, CarsRepositoryInterface $carsRepository) {

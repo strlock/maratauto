@@ -22,4 +22,8 @@ return [
     'ownersto' => 'Власники до',
     'userNotLoggedIn' => 'Користувач не ввійшов',
     'carsLimitExceeded' => 'Перевищено ліміт повідомлень',
+    'information' => 'Інформація',
+    'price' => 'Ціна',
+    'content' => 'Повідомлення',
+    'currencySign' => 'грн'
 ];

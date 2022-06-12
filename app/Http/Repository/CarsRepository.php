@@ -51,6 +51,8 @@ class CarsRepository implements CarsRepositoryInterface
                            'cars.volume',
                            'cars.distance',
                            'cars.owners',
+                           'cars.price',
+                           'cars.content',
                            DB::raw('cars.created_at as `created_at`')
                        ]);
         $this->prepareQueryFilters($query, $search, $state_id, $city_id, $brand_id, $volume_from, $volume_to, $distance_from, $distance_to, $owners_from, $owners_to);
@@ -72,6 +74,8 @@ class CarsRepository implements CarsRepositoryInterface
                 'distance' => $car->distance,
                 'owners' => $car->owners,
                 'photos' => $photos,
+                'price' => number_format($car->price, 2).' '.__('maratauto.currencySign'),
+                'content' => $car->content,
                 'date' => $car->created_at?->format('d.m.Y H:i:s'),
             ];
         }

@@ -5,12 +5,48 @@
 @import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+//@import '~bootstrap/scss/bootstrap';
 @import '../css/jquery.imagesloader.css';
 
 #filters {
     input, select {
         width: 150px;
         margin: 0.33rem 0;
+    }
+}
+
+.car-carousel {
+    .carousel-item {
+        &>div {
+            height: 150px;
+            background-color: #000;
+        }
+        img {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    }
+}
+
+table.dataTable {
+    td, th {
+        padding: 0.5rem;
+    }
+}
+
+.car-info {
+    padding-left: 3rem;
+    b {
+        display: inline-block;
+        min-width: 150px;
+    }
+}
+
+#cars-data-table {
+    th.info {
+        padding-left: 3.5rem !important;
+    }
+    th.date, th.price, th.content {
+        text-align: center;
     }
 }
