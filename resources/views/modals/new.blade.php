@@ -54,7 +54,6 @@
                     <div class="form-group mb-2 form-group-uploader">
                         <label for="photos">{{ __('maratauto.photos') }}</label>
                         <input type="file" name="photos[]" multiple class="form-control" id="photos" required accept="image/jpeg, image/png, image/gif" />
-                        {{--@include('partials.imagesloader')--}}
                     </div>
                     @csrf
                 </form>
