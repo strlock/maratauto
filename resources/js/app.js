@@ -59,6 +59,8 @@ function closeNewForm() {
     $form.find('#distance').val('');
     $form.find('#owners').val('');
     $form.find('#photos').val('');
+    $form.find('#price').val('');
+    $form.find('#content').val('');
     $form.removeClass('was-validated');
     jQuery('#newModal').modal('hide');
 }

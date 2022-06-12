@@ -79,7 +79,7 @@
             </div>
         </nav>
         <main class="py-4">
-            <div class="container-fluid d-none" id="alert-container">
+            <div class="container-fluid" id="alert-container" style="display: none">
                 <div class="row justify-content-center mb-3">
                     <div class="col-xl-8 col-md-12">
                         <div class="alert" role="alert"></div>
