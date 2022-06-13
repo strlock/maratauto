@@ -86,7 +86,7 @@
             initComplete: function (settings, json) {
                 jQuery('.car-carousel').each(function (key, element) {
                     new bootstrap.Carousel(element, {
-                        interval: 99999,
+                        interval: false,
                     });
                 });
             },
