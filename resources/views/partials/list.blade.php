@@ -21,17 +21,17 @@
             columns: [
                 {
                     data: 'photos',
-                    width: 200,
+                    width: 300,
                     render: function (data, type, row) {
                         if (!Array.isArray(data)) {
                             return '';
                         }
                         if (data.length <= 1) {
-                            return '<div class="d-flex justify-content-center align-items-center"><img src="photo' + '/' + data[0] + '/200" class="d-block w-100" alt="" /></div>';
+                            return '<div class="d-flex justify-content-center align-items-center"><img src="photo' + '/' + data[0] + '/300" class="d-block w-100" alt="" /></div>';
                         }
                         let carouselHtml = '<div id="car-carousel-' + row.id + '" class="carousel slide car-carousel" data-bs-ride="carousel"><div class="carousel-inner">';
                         jQuery.each(data, function (i, photoId) {
-                            carouselHtml += '<div class="carousel-item' + (i === 0 ? ' active' : '') + '"><div class="d-flex justify-content-center align-items-center"><img src="photo' + '/' + photoId + '/200" class="d-block w-100" alt="" /></div></div>';
+                            carouselHtml += '<div class="carousel-item' + (i === 0 ? ' active' : '') + '"><div class="d-flex justify-content-center align-items-center"><img src="photo' + '/' + photoId + '/300" class="d-block w-100" alt="" /></div></div>';
                         });
                         carouselHtml += '</div>';
                         carouselHtml += '<button class="carousel-control-prev" type="button" data-bs-target="#car-carousel-' + row.id + '" data-bs-slide="prev">' +
