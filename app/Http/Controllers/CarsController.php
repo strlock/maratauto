@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Dto\CarFiltersDto;
 use App\Repository\CarsRepositoryInterface;
 use App\Models\Brand;
 use App\Models\Car;
@@ -60,8 +61,12 @@ class CarsController extends Controller
             if (!empty($search)) {
                 $search = $search['value'];
             }
-            $totalCount = $carsRepository->getCarsTotalCount($search, $state_id, $city_id, $brand_id, $volume_from, $volume_to, $distance_from, $distance_to, $owners_from, $owners_to);
-            $data = $carsRepository->getCarsData($start, $length, $search, $state_id, $city_id, $brand_id, $volume_from, $volume_to, $distance_from, $distance_to, $owners_from, $owners_to);
+            $filtersDto = new CarFiltersDto(
+                $search, $state_id, $city_id, $brand_id, $volume_from, $volume_to,
+                $distance_from, $distance_to, $owners_from, $owners_to
+            );
+            $totalCount = $carsRepository->getCarsTotalCount($filtersDto);
+            $data = $carsRepository->getCarsData($start, $length, $filtersDto);
             return response()->json([
                 'success' => true,
                 'data' => $data,

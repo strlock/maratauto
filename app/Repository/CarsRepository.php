@@ -4,6 +4,7 @@
 namespace App\Repository;
 
 
+use App\Dto\CarFiltersDto;
 use App\Models\Car;
 use App\Models\CarPhoto;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,32 +16,10 @@ class CarsRepository implements CarsRepositoryInterface
     /**
      * @param int $offset
      * @param int $limit
-     * @param string|null $search
-     * @param int|null $state_id
-     * @param int|null $city_id
-     * @param int|null $brand_id
-     * @param float|null $volume_from
-     * @param float|null $volume_to
-     * @param float|null $distance_from
-     * @param float|null $distance_to
-     * @param int|null $owners_from
-     * @param int|null $owners_to
+     * @param CarFiltersDto $dto
      * @return array
      */
-    public function getCarsData(
-        int $offset = 0,
-        int $limit = 10,
-        string $search = null,
-        int $state_id = null,
-        int $city_id = null,
-        int $brand_id = null,
-        float $volume_from = null,
-        float $volume_to = null,
-        float $distance_from = null,
-        float $distance_to = null,
-        int $owners_from = null,
-        int $owners_to = null,
-    ): array {
+    public function getCarsData(int $offset, int $limit, CarFiltersDto $dto): array {
         $data = [];
         $query = Car::with(['state', 'city', 'brand']);
         $query->select([
@@ -55,7 +34,7 @@ class CarsRepository implements CarsRepositoryInterface
                            'cars.content',
                            DB::raw('cars.created_at as `created_at`')
                        ]);
-        $this->prepareQueryFilters($query, $search, $state_id, $city_id, $brand_id, $volume_from, $volume_to, $distance_from, $distance_to, $owners_from, $owners_to);
+        $this->prepareQueryFilters($query, $dto);
         $query->skip($offset)->take($limit);
         $query->orderBy('cars.created_at', 'DESC');
         $cars = $query->get();
@@ -83,97 +62,56 @@ class CarsRepository implements CarsRepositoryInterface
     }
 
     /**
-     * @param string|null $search
-     * @param int|null $state_id
-     * @param int|null $city_id
-     * @param int|null $brand_id
-     * @param float|null $volume_from
-     * @param float|null $volume_to
-     * @param float|null $distance_from
-     * @param float|null $distance_to
-     * @param int|null $owners_from
-     * @param int|null $owners_to
+     * @param CarFiltersDto $dto
      * @return int
      */
-    public function getCarsTotalCount(
-        string $search = null,
-        int $state_id = null,
-        int $city_id = null,
-        int $brand_id = null,
-        float $volume_from = null,
-        float $volume_to = null,
-        float $distance_from = null,
-        float $distance_to = null,
-        int $owners_from = null,
-        int $owners_to = null,
-    ): int {
+    public function getCarsTotalCount(CarFiltersDto $dto): int {
         $query = Car::query();
-        $this->prepareQueryFilters($query, $search, $state_id, $city_id, $brand_id, $volume_from, $volume_to, $distance_from, $distance_to, $owners_from, $owners_to);
+        $this->prepareQueryFilters($query, $dto);
         return $query->count();
     }
 
     /**
      * @param Builder $query
-     * @param string|null $search
-     * @param int|null $state_id
-     * @param int|null $city_id
-     * @param int|null $brand_id
-     * @param float|null $volume_from
-     * @param float|null $volume_to
-     * @param float|null $distance_from
-     * @param float|null $distance_to
-     * @param int|null $owners_from
-     * @param int|null $owners_to
+     * @param CarFiltersDto $dto
      */
-    private function prepareQueryFilters(
-        Builder $query,
-        string $search = null,
-        int $state_id = null,
-        int $city_id = null,
-        int $brand_id = null,
-        float $volume_from = null,
-        float $volume_to = null,
-        float $distance_from = null,
-        float $distance_to = null,
-        int $owners_from = null,
-        int $owners_to = null,
-    ) {
-        if (!empty($search)) {
+    private function prepareQueryFilters(Builder $query, CarFiltersDto $dto): void {
+        if (!empty($dto->getSearch())) {
             $query->leftJoin('states AS cs', 'cars.state_id', '=', 'cs.id');
             $query->leftJoin('cities AS cc', 'cars.city_id', '=', 'cc.id');
             $query->leftJoin('brands AS cb', 'cars.brand_id', '=', 'cb.id');
-            $query->where(function ($query) use($search) {
-                $query->where('cs.name', 'LIKE', '%'.$search.'%');
-                $query->orWhere('cc.name', 'LIKE', '%'.$search.'%');
-                $query->orWhere('cb.name', 'LIKE', '%'.$search.'%');
+            $query->where(function ($query) use($dto) {
+                $query->where('cs.name', 'LIKE', '%'.$dto->getSearch().'%');
+                $query->orWhere('cc.name', 'LIKE', '%'.$dto->getSearch().'%');
+                $query->orWhere('cb.name', 'LIKE', '%'.$dto->getSearch().'%');
             });
         }
-        $query->when(!empty($state_id), function($query) use($state_id) {
-            $query->where('cars.state_id', '=', $state_id);
+        $query->when(!empty($dto->getStateId()), function($query) use($dto) {
+            $query->where('cars.state_id', '=', $dto->getStateId());
         });
-        $query->when(!empty($city_id), function($query) use($city_id) {
-            $query->where('cars.city_id', '=', $city_id);
+        $query->when(!empty($dto->getCityId()), function($query) use($dto) {
+            $query->where('cars.city_id', '=', $dto->getCityId());
         });
-        $query->when(!empty($brand_id), function($query) use($brand_id) {
-            $query->where('cars.brand_id', '=', $brand_id);
+        $query->when(!empty($dto->getBrandId()), function($query) use($dto) {
+            $query->where('cars.brand_id', '=', $dto->getBrandId());
         });
-        $query->when(!empty($volume_from), function($query) use($volume_from) {
-            $query->where('cars.volume', '>=', $volume_from);
+        $query->when(!empty($dto->getVolumeFrom()), function($query) use($dto) {
+            $query->where('cars.volume', '>=', $dto->getVolumeFrom());
         });
-        $query->when(!empty($volume_to), function($query) use($volume_to) {
-            $query->where('cars.volume', '<=', $volume_to);
+        $query->when(!empty($dto->getVolumeTo()), function($query) use($dto) {
+            $query->where('cars.volume', '<=', $dto->getVolumeTo());
         });
-        $query->when(!empty($distance_from), function($query) use($distance_from) {
-            $query->where('cars.distance', '>=', $distance_from);
+        $query->when(!empty($dto->getDistanceFrom()), function($query) use($dto) {
+            $query->where('cars.distance', '>=', $dto->getDistanceFrom());
         });
-        $query->when(!empty($distance_to), function($query) use($distance_to) {
-            $query->where('cars.distance', '<=', $distance_to);
+        $query->when(!empty($dto->getDistanceTo()), function($query) use($dto) {
+            $query->where('cars.distance', '<=', $dto->getDistanceTo());
         });
-        $query->when(!empty($owners_from), function($query) use($owners_from) {
-            $query->where('cars.owners', '>=', $owners_from);
+        $query->when(!empty($dto->getOwnersFrom()), function($query) use($dto) {
+            $query->where('cars.owners', '>=', $dto->getOwnersFrom());
         });
-        $query->when(!empty($owners_to), function($query) use($owners_to) {
-            $query->where('cars.owners', '<=', $owners_to);
+        $query->when(!empty($dto->getOwnersTo()), function($query) use($dto) {
+            $query->where('cars.owners', '<=', $dto->getOwnersTo());
         });
     }
 
