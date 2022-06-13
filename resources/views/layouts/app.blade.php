@@ -26,7 +26,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid justify-content-center">
-                <div class="col-xl-8 col-md-12">
+                <div class="col-xl-10 col-md-12">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
@@ -81,7 +81,7 @@
         <main class="py-4">
             <div class="container-fluid" id="alert-container" style="display: none">
                 <div class="row justify-content-center mb-3">
-                    <div class="col-xl-8 col-md-12">
+                    <div class="col-xl-10 col-md-12">
                         <div class="alert" role="alert"></div>
                     </div>
                 </div>
